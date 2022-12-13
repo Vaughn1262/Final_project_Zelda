@@ -3,6 +3,8 @@ using System.Numerics;
 class Player: gameObject{
     int PlayerHeight = 25;
     int PlayerWidth = 25;
+
+    float PlayerMoveSpeed = 4;
     
 
     public Player(Color Color1, int size){
@@ -10,7 +12,9 @@ class Player: gameObject{
     }
 
     public void Playermove(ref Vector2 PlayerPosition){
-        var PlayerMoveSpeed = 4;
+        if (PlayerPosition.X > 0 & PlayerPosition.Y > 0 & PlayerPosition.X < 1000 & PlayerPosition.Y < 1000){
+            PlayerMoveSpeed = 4;
+        }
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN)) {
             PlayerPosition.Y += PlayerMoveSpeed;
@@ -26,6 +30,29 @@ class Player: gameObject{
         if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) {
             PlayerPosition.X -= PlayerMoveSpeed;
         }
+
+        if (PlayerPosition.X <= 0){
+            PlayerMoveSpeed = 0;
+            PlayerPosition.X += 1;
+            
+        }
+        if (PlayerPosition.Y <= 0){
+            PlayerMoveSpeed = 0;
+            PlayerPosition.Y += 1;
+            
+        }
+        if (PlayerPosition.X >= 1000){
+            PlayerMoveSpeed = 0;
+            PlayerPosition.X -= 1;
+            
+        }
+        if (PlayerPosition.Y >= 1000){
+            PlayerMoveSpeed = 0;
+            PlayerPosition.Y -= 1;
+            
+        }
+        
+
 
         Raylib.DrawRectangle((int)PlayerPosition.X, (int)PlayerPosition.Y, PlayerHeight, PlayerWidth, Color.BLUE); 
     } 
